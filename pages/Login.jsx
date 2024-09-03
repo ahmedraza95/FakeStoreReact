@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "@nextui-org/react";
 import { useState } from "react";
 import { app, auth, signInWithEmailAndPassword } from "../firebase/firebase.js";
+import Headerloginsignup from "./Headerloginsignup.jsx";
 function Login() {
     const navigate = useNavigate();
     const [Email, setEmail] = useState('')
@@ -15,7 +16,7 @@ function Login() {
             await signInWithEmailAndPassword(auth, Email, Password)
             console.log("Done");
             setloading(false)
-            navigate('/')
+            navigate('/dashboard')
         } catch (error) {
             console.log("wrong");
 
@@ -29,6 +30,7 @@ function Login() {
 
     return (
         <>
+            <Headerloginsignup />
             <section className="loginpage">
                 <div className="image">
                     <img width="280%" src="#" alt="" />

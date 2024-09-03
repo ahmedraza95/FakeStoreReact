@@ -2,6 +2,7 @@ import { Link , useNavigate } from "react-router-dom"
 import { auth, createUserWithEmailAndPassword } from "../firebase/firebase.js"
 import { useState } from "react";
 import { Button } from "@nextui-org/react";
+import Headerloginsignup from "./Headerloginsignup.jsx";
 function Signup() {
     const [Email, setEmail] = useState('')
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Signup() {
             await createUserWithEmailAndPassword(auth, Email, Password)
             console.log("Done");
             setloading(false)
-            navigate('/')
+            navigate('/dashboard')
         } catch (error) {
             console.log("wrong");
 
@@ -27,6 +28,7 @@ function Signup() {
     }
     return (
         <>
+        <Headerloginsignup />
             <section className="loginpage">
                 <div className="image">
                     <img width="280%" src="#" alt="" />
