@@ -1,35 +1,62 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import React from "react";
+import { Button } from "@nextui-org/react";
+import { useState } from "react";
+import { app, auth, signInWithEmailAndPassword } from "../firebase/firebase.js";
 function Login() {
+    const navigate = useNavigate();
+    const [Email, setEmail] = useState('')
+    const [Password, setPassword] = useState('')
+    const [loading, setloading] = useState(false)
+
+    async function SubmitBtn() {
+        try {
+            setloading(true)
+            await signInWithEmailAndPassword(auth, Email, Password)
+            console.log("Done");
+            setloading(false)
+            navigate('/')
+        } catch (error) {
+            console.log("wrong");
+
+        }
+
+
+        // console.log(Email,Password);
+
+
+    }
+
     return (
         <>
-            <section class="loginpage">
-                <div class="image">
+            <section className="loginpage">
+                <div className="image">
                     <img width="280%" src="#" alt="" />
                 </div>
-                <div class="form">
-                    <div class="image1">
+                <div className="form">
+                    <div className="image1">
                         <h1>Log IN</h1>
-                        <div class="form1">
+                        <div className="form1">
                             <form id="login" action="">
                                 <div className="inputField">
                                     <div>
                                         <label>Email</label>
-                                        <input type="text" placeholder="Enter Your Email" name="" id="" />
+                                        <input onChange={(e) => setEmail(e.target.value)} className="inputBorder" type="text" placeholder="Enter Your Email" name="" />
                                     </div>
                                     <div>
                                         <label>Password</label>
-                                        <input type="password" placeholder="Enter Your Password" name="" id="" />
+                                        <input onChange={(e) => setPassword(e.target.value)} className="inputBorder" type="password" placeholder="Enter Your Password" name="" />
                                     </div>
                                 </div>
-                                <div className="Btn">
-                                    <button id="btnSubmit" class="inputuser" type="submit"><b>Log-In</b></button>
-                                </div>
+                                <Button onClick={SubmitBtn} isLoading={loading} className='mt-2' color="primary">
+                                    Button
+                                </Button>
                             </form>
                         </div>
-                    <div className="LinksPages">
-                        <p class="loginmargin">Don't Have an account? </p>
-                        <Link to={`/signup`}>Sign-Up</Link>
-                    </div>
+                        <div className="LinksPages">
+                            <p className="loginmargin">Don't Have an account? </p>
+                            <Link to={`/signup`}>Sign-Up</Link>
+                        </div>
                     </div>
                 </div>
 
